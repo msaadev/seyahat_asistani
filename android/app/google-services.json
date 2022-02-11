@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "309733892456",
+    "project_id": "seyahat-asistani",
+    "storage_bucket": "seyahat-asistani.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309733892456:android:9bda5c9601d00894edb6dd",
+        "android_client_info": {
+          "package_name": "com.fof.seyahat_asistani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309733892456-6487qekkn6m9f57dbghc2qf8dm555m2s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgwvpZA859qOUzNxOrJCr3d2jCWztlg3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309733892456-6487qekkn6m9f57dbghc2qf8dm555m2s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

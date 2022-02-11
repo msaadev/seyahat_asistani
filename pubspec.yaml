@@ -1,23 +1,33 @@
 name: seyahat_asistani
 description: A new Flutter project.
 
-publish_to: 'none' 
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter  
   cupertino_icons: ^1.0.2
+  firebase_auth: ^3.3.7
+  firebase_core: ^1.12.0
+  flutter:
+    sdk: flutter
+  flutter_mobx: ^2.0.4
+  geolocator: ^8.1.1
+  google_maps_flutter: ^2.1.1
+  mobx: ^2.0.6+1
+  provider: ^6.0.2
+  weather: ^2.0.1
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter 
+  build_runner: ^2.1.7
   flutter_lints: ^1.0.0
-flutter:  
-  uses-material-design: true 
+  flutter_test:
+    sdk: flutter
+  mobx_codegen: ^2.0.5+2
+flutter:
+  uses-material-design: true
   assets:
     - assets/images/
     - assets/ai/
