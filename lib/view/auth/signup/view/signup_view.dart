@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lib_msaadev/lib_msaadev.dart';
 
-import '../../../core/constants/app_constants.dart';
-import '../../../core/widgets/buttons/custom_button.dart';
-import '../../../core/widgets/buttons/login_button.dart';
-import '../../../core/widgets/inputs/login_input.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/widgets/buttons/custom_button.dart';
+import '../../../../core/widgets/buttons/login_button.dart';
+import '../../../../core/widgets/inputs/login_input.dart';
 
 class SignupView extends StatefulWidget {
   final PageController pageController;

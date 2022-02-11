@@ -24,6 +24,7 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      height: 70,
       alignment: Alignment.center,
       padding: 15.paddingAll,
       decoration: BoxDecoration(
@@ -32,7 +33,9 @@ class _CustomButtonState extends State<CustomButton> {
       ),
       child: isLoading
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
             )
           : Text(
               widget.text,
@@ -41,16 +44,18 @@ class _CustomButtonState extends State<CustomButton> {
             ),
     ).onTap(isLoading
         ? null
-        : () {
-          
-          if (widget.onTap != null) {
-          widget.onTap!();
-            
-          }  
+        : () async {
+            _changeLoading;
+            if (widget.onTap != null) {
+              await widget.onTap!();
+            }
+            _changeLoading;
           });
-
-
   }
 
-
+  void get _changeLoading {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lib_msaadev/lib_msaadev.dart';
+import 'package:seyahat_asistani/view/auth/login/view_model/login_view_model.dart';
 
-import '../../../core/constants/app_constants.dart';
-import '../../../core/widgets/buttons/custom_button.dart';
-import '../../../core/widgets/inputs/login_input.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/widgets/buttons/custom_button.dart';
+import '../../../../core/widgets/inputs/login_input.dart';
 
 class LoginView extends StatefulWidget {
   final PageController pageController;
@@ -17,10 +18,12 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late final GlobalKey<FormState> _key;
   late final TextEditingController _mail, _password;
+  late final LoginViewModel viewModel;
 
   @override
   void initState() {
     super.initState();
+    viewModel = LoginViewModel();
     _key = GlobalKey<FormState>();
     _mail = TextEditingController();
     _password = TextEditingController();
@@ -52,6 +55,7 @@ class _LoginViewState extends State<LoginView> {
               Column(
                 children: [
                   LoginInput(
+                    controller: _mail,
                     icon: Icons.mail,
                     hint: 'E-Mail',
                     validator: (String? value) {
@@ -65,6 +69,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   10.hSized,
                   LoginInput(
+                    controller: _password,
                     icon: Icons.vpn_key,
                     obscure: true,
                     hint: 'Şifre',
@@ -109,9 +114,10 @@ class _LoginViewState extends State<LoginView> {
         ));
   }
 
-  void get login {
+  void get login async {
+    // await Future.delayed(5.secondDuration).then((value) => debugPrint('samil'));
     if (_key.currentState!.validate()) {
-      AppConstants.showSuccesToas(message: 'Giriş başarılı');
+     await  viewModel.login(email: _mail.text, password: _password.text);
     } else {
       AppConstants.showErrorToas(message: 'Lütfen gerekli yerleri doldurunuz');
     }
