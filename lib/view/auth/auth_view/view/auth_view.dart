@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lib_msaadev/lib_msaadev.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../forgot_password/forgot_password_view.dart';
-import '../../login/login_view.dart';
-import '../../signup/signup_view.dart';
+import '../../login/view/login_view.dart';
+import '../../signup/view/signup_view.dart';
 import '../view_model/auth_viewmodel.dart';
 
 class AuthView extends StatefulWidget {
