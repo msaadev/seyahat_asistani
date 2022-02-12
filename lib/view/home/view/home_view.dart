@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
 import '../view_model/home_view_model.dart';
 
 class HomeView extends StatefulWidget {
@@ -16,6 +17,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     viewModel = HomeViewModel();
+    print(CacheManager.instance.getUser!.uid);
   }
 
   @override
