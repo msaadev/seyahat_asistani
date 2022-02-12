@@ -1,7 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
 import 'package:seyahat_asistani/core/init/providers/provider_list.dart';
@@ -10,8 +12,11 @@ import 'package:seyahat_asistani/view/splash/view/splash_view.dart';
 
 import 'core/init/navigation/navigation_service.dart';
 
+late List<CameraDescription> cameras;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Permission.camera.request();
   await _init();
   runApp(MultiProvider(
     providers: [...ApplicationProvider.instance.dependItems],
@@ -24,7 +29,8 @@ late final FirebaseAuth firebaseAuth;
 Future _init() async {
   await Firebase.initializeApp();
   firebaseAuth = FirebaseAuth.instance;
-await CacheManager.prefrencesInit();
+  cameras = await availableCameras();
+  await CacheManager.prefrencesInit();
 }
 
 class MyApp extends StatelessWidget {

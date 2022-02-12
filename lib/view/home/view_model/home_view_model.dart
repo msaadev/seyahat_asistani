@@ -41,6 +41,7 @@ abstract class _HomeViewModelBase with Store {
       Weather w = await weatherFactory.currentWeatherByLocation(
           currentPosition!.latitude, currentPosition!.longitude);
       weather = w;
+      print(weather);
     } 
   }
 
