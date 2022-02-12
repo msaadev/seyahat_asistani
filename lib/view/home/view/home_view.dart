@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seyahat_asistani/core/services/database_service.dart';
+import '../../../core/init/cache/cache_manager.dart';
 import '../view_model/home_view_model.dart';
 
 class HomeView extends StatefulWidget {
@@ -19,15 +20,15 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
       weatherData = data;
     });
+    
   }
 
   @override
   void initState() {
     viewModel = HomeViewModel();
     getWeather();
-    var userData = DatabaseService.instance.getUserData().then((value) => {
-          print(value[0]["uid"])
-    });
+    print("Cache Manager ---------------");
+    print(CacheManager.instance.getUser?.uid);
     super.initState();
   }
 
