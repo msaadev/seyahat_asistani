@@ -32,9 +32,9 @@ abstract class _LoginViewModelBase with Store {
             totalDrive: e.data()["totalDrive"],
             totalWalk: e.data()["totalWalk"]);
         await CacheManager.instance.setUserData(userdata);
+        NavigationService.instance
+            .navigateToPageWidgetClear(page: const HomeView());
       });
-      NavigationService.instance
-          .navigateToPageWidgetClear(page: const HomeView());
     } else {
       AppConstants.showErrorToas(message: 'Error');
     }
