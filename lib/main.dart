@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       title: 'Seyahat Asistani',
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],
-      home: const HomeView(),
+      home: const SplashView(),
     );
   }
 }
