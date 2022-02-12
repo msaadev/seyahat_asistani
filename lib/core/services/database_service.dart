@@ -26,11 +26,13 @@ class DatabaseService {
     });
   }
 
-  Future getUserData() async {
+  getUserData(String user_uid) async {
 
-    QuerySnapshot querySnapshot = await usersRef.get();
-    var allUserData = querySnapshot.docs.map((e) => e.data()).toList();
-    return allUserData;
+    DocumentSnapshot documentSnaphot =  await usersRef
+    .doc(user_uid)
+    .get();
+    
+    return documentSnaphot;
     
   }
 }
