@@ -37,7 +37,7 @@ class CacheManager {
       _preferences!.getBool(key.toString()) ?? false;
 
   Future<void> setUserData(UserData user) async {
-   await _preferences!.setString('user', json.encode(user.toJson));
+    _preferences!.setString('user', json.encode(user.toJson));
   }
 
   UserData? get getUser {
