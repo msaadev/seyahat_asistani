@@ -21,13 +21,12 @@ abstract class _SplashViewModelBase with Store {
   void get checkLogin {
     Future.delayed(1.secondDuration).then((value) {
       navigationService.navigateToPageWidgetClear(page: const AuthView());
-      /*
       print(firebaseAuth.currentUser);
       if (firebaseAuth.currentUser == null) {
         navigationService.navigateToPageWidgetClear(page: const AuthView());
       } else {
         navigationService.navigateToPageWidgetClear(page: const HomeView());
-      }*/
+      }
     });
   }
 }
