@@ -13,6 +13,7 @@ class UserData {
   final String fuelCost;
   final String totalCalories;
   final String totalDrive;
+  final String totalWalk;
 
   UserData(
       {required this.uid,
@@ -20,7 +21,8 @@ class UserData {
       required this.name,
       required this.fuelCost,
       required this.totalCalories,
-      required this.totalDrive});
+      required this.totalDrive,
+      required this.totalWalk});
 
   factory UserData.fromDocument(DocumentSnapshot doc) {
     return UserData(
@@ -29,7 +31,8 @@ class UserData {
       name: doc['name'],
       fuelCost: doc['fuelCost'],
       totalCalories: doc['totalCalories'],
-      totalDrive: doc['totalDrive']
+      totalDrive: doc['totalDrive'],
+      totalWalk: doc['totalWalk'],
     );
   }
 }

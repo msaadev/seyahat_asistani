@@ -123,7 +123,7 @@ class _SignupViewState extends State<SignupView> {
   void get signup async {
     if (_key.currentState!.validate()) {
       AppConstants.showSuccesToas(message: 'Kayıt başarılı');
-      await viewModel.register(email: _mail.text, password: _password.text, name: _name.text, fuelCost: _fuelCost.text, totalCalories: "0", totalDrive: "0");
+      await viewModel.register(email: _mail.text, password: _password.text, name: _name.text, fuelCost: _fuelCost.text, totalCalories: "0", totalDrive: "0", totalWalk: "0");
     } else {
       AppConstants.showErrorToas(message: 'Lütfen gerekli yerleri doldurunuz');
     }

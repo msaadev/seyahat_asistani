@@ -16,12 +16,13 @@ abstract class _SignupViewModelBase with Store {
       required name,
       required fuelCost,
       required totalCalories,
-      required totalDrive}) async {
+      required totalDrive,
+      required totalWalk}) async {
     var result = await firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     var user = result.user;
     await DatabaseService(uid: user!.uid)
-        .updateUserData(email, name, fuelCost, totalCalories, totalDrive);
+        .updateUserData(email, name, fuelCost, totalCalories, totalDrive, totalWalk);
     if (result.user != null) {
       NavigationService.instance
           .navigateToPageWidgetClear(page: const HomeView());
