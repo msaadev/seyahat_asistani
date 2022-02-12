@@ -14,7 +14,7 @@ class DatabaseService {
   final CollectionReference usersRef =
       FirebaseFirestore.instance.collection('users');
 
-  Future updateUserData(String email, String name, String fuelCost, String totalCalories, String totalDrive) async {
+  Future updateUserData(String email, String name, String fuelCost, String totalCalories, String totalDrive, String totalWalk) async {
     return await usersRef.doc(uid).set({
       'uid': uid,
       'email': email,
@@ -22,6 +22,7 @@ class DatabaseService {
       'fuelCost': fuelCost,
       'totalCalories': totalCalories,
       'totalDrive': totalDrive,
+      'totalWalk': totalWalk,
     });
   }
 }
