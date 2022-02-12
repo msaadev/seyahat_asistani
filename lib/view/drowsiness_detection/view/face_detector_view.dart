@@ -23,7 +23,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
 
   @override
   void dispose() {
-    faceDetector.close();
+    //faceDetector.close();
     super.dispose();
   }
 
