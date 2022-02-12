@@ -7,9 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
 import 'package:seyahat_asistani/core/init/providers/provider_list.dart';
-import 'package:seyahat_asistani/view/home/view/home_view.dart';
 import 'package:seyahat_asistani/view/splash/view/splash_view.dart';
-
 import 'core/init/navigation/navigation_service.dart';
 
 late List<CameraDescription> cameras;
@@ -44,7 +42,7 @@ class MyApp extends StatelessWidget {
       title: 'Seyahat Asistani',
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],
-      home: const SplashView(),
+      home: const Scaffold(body: SafeArea(child: SplashView())),
     );
   }
 }

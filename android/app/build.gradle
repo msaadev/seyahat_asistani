@@ -66,5 +66,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.mlkit:face-detection:16.1.4'
+     implementation 'com.google.mlkit:face-detection:16.1.4'
 }
