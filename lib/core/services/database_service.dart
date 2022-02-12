@@ -25,4 +25,12 @@ class DatabaseService {
       'totalWalk': totalWalk,
     });
   }
+
+  Future getUserData() async {
+
+    QuerySnapshot querySnapshot = await usersRef.get();
+    var allUserData = querySnapshot.docs.map((e) => e.data()).toList();
+    return allUserData;
+    
+  }
 }
