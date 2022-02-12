@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seyahat_asistani/core/services/database_service.dart';
-import '../../../core/init/cache/cache_manager.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import '../view_model/home_view_model.dart';
 
 class HomeView extends StatefulWidget {
@@ -12,32 +11,30 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late final HomeViewModel viewModel;
-  dynamic weatherData;
-
-  getWeather() async {
-    var data = await viewModel.getCurrentWeather();
-
-    setState(() {
-      weatherData = data;
-    });
-    
-  }
 
   @override
   void initState() {
-    viewModel = HomeViewModel();
-    getWeather();
-    print("Cache Manager ---------------");
-    print(CacheManager.instance.getUser?.uid);
     super.initState();
+    viewModel = HomeViewModel();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(child: Text(weatherData.toString())),
+      body: ListView(
+        children: [
+          buildWeather(),
+        ],
       ),
     );
+  }
+
+  Observer buildWeather() {
+    return Observer(builder: (_) {
+          return Center(
+              child: viewModel.isWeatherNotNull
+                  ? Text(viewModel.weather!.weatherDescription.toString())
+                  : CircularProgressIndicator());
+        });
   }
 }

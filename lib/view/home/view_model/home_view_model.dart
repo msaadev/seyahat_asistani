@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mobx/mobx.dart';
 import 'package:weather/weather.dart';
@@ -9,9 +10,12 @@ class HomeViewModel = _HomeViewModelBase with _$HomeViewModel;
 
 abstract class _HomeViewModelBase with Store {
   _HomeViewModelBase() {
-    _determinePosition();
+    _init();
+  }
+
+  Future _init() async {
+   await _determinePosition();
     streamPosition();
-    getCurrentWeather();
   }
 
   WeatherFactory weatherFactory =
@@ -33,10 +37,11 @@ abstract class _HomeViewModelBase with Store {
 
   @action
   getCurrentWeather() async {
-    Weather w = await weatherFactory.currentWeatherByLocation(
-        currentPosition!.latitude, currentPosition!.longitude);
-    weather = w;
-    return w.weatherDescription;
+    if (isPositionNotNull) {
+      Weather w = await weatherFactory.currentWeatherByLocation(
+          currentPosition!.latitude, currentPosition!.longitude);
+      weather = w;
+    } 
   }
 
   streamPosition() {
@@ -44,11 +49,13 @@ abstract class _HomeViewModelBase with Store {
             locationSettings: const LocationSettings(
                 distanceFilter: 5, accuracy: LocationAccuracy.medium))
         .listen((event) {
+          debugPrint('listening');
       currentPosition = event;
       getCurrentWeather();
     });
   }
 
+ 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -68,7 +75,13 @@ abstract class _HomeViewModelBase with Store {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
+
+    var position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.medium);
+        debugPrint('determine done');
+    currentPosition = position;
+    getCurrentWeather();
+
+    return position;
   }
 }
