@@ -146,7 +146,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
             );
           }),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CameraView(
                   title: "Face Detector",
@@ -157,6 +157,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
                   initialDirection: CameraLensDirection.front,
                   leftEye: leftEyeOpenProb,
                   rightEye: rightEyeOpenProb),
+                  SizedBox(width: 10,),
               viewModel.statisticCard(context, widget.travelModel)
             ],
           ),

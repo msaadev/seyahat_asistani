@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lib_msaadev/lib_msaadev.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/models/travel_model.dart';
@@ -66,35 +67,48 @@ abstract class _FaceDetectorModelBase with Store {
     });
   }
 
-  Container statisticCard(BuildContext context, TravelModel travelModel) {
+  ClipRRect statisticCard(BuildContext context, TravelModel travelModel) {
     String? cacheText;
 
     cacheText = travelModel.weather!.weatherDescription;
+    String? imageUrl =
+          travelModel.weather != null ? travelModel.weather!.weatherIcon : null;
 
-    return Container(
-      width: MediaQuery.of(context).size.width / 2,
-      height: MediaQuery.of(context).size.height / 3,
-      decoration: BoxDecoration(
-        color: Colors.blueGrey[400],
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-                alignment: Alignment.topCenter,
-                child: Text("Hava Durumu",
-                    style: GoogleFonts.montserrat(
-                        fontSize: 20, fontWeight: FontWeight.bold))),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Card(
+        color: Theme.of(context).primaryColor,
+        child: Container(
+          padding: 10.paddingAll,
+          width: MediaQuery.of(context).size.width / 2.2,
+          height: MediaQuery.of(context).size.height / 3.1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Hava Durumu",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.montserrat(
+                      fontSize: 20, fontWeight: FontWeight.bold)),
+              imageUrl != null
+                  ? Image(
+                      height: MediaQuery.of(context).size.height / 6,
+                      image: NetworkImage(
+                        'http://openweathermap.org/img/wn/${imageUrl}@2x.png',
+                      ),
+                      errorBuilder: (c, _, __) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : const SizedBox(),
+              Text(
+                cacheText!,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.montserrat(
+                    fontSize: 20, fontWeight: FontWeight.bold),
+              )
+            ],
           ),
-          Text(
-            cacheText!,
-            style: GoogleFonts.montserrat(
-                fontSize: 30, fontWeight: FontWeight.bold),
-          )
-        ],
+        ),
       ),
     );
   }
