@@ -43,6 +43,9 @@ abstract class _HomeViewModelBase with Store {
   @observable
   LatLng? finishMarker;
 
+  @computed
+  bool get isFinishNotNull => finishMarker != null;
+
   @observable
   MapType currentMapType = MapType.normal;
 
@@ -117,6 +120,10 @@ abstract class _HomeViewModelBase with Store {
   @action
   addMarker(LatLng position) {
     finishMarker = position;
+  }
+
+
+  navigateToSelectMode(){
     NavigationService.instance.navigateToPageWidget(
         page: SelectModeView(
             travelModel: TravelModel(
@@ -125,13 +132,5 @@ abstract class _HomeViewModelBase with Store {
                 start: LatLng(
                     currentPosition!.latitude, currentPosition!.longitude),
                 weather: weather)));
-  }
-
-  TravelModel setTravelModel() {
-    return TravelModel(
-        start: LatLng(currentPosition!.latitude, currentPosition!.longitude),
-        finish: LatLng(finishMarker!.latitude, finishMarker!.longitude),
-        fuel: 7,
-        weather: weather);
   }
 }

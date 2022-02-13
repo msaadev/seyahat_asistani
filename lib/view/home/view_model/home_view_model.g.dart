@@ -23,6 +23,13 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
           () => super.isWeatherNotNull,
           name: '_HomeViewModelBase.isWeatherNotNull'))
       .value;
+  Computed<bool>? _$isFinishNotNullComputed;
+
+  @override
+  bool get isFinishNotNull =>
+      (_$isFinishNotNullComputed ??= Computed<bool>(() => super.isFinishNotNull,
+              name: '_HomeViewModelBase.isFinishNotNull'))
+          .value;
 
   final _$weatherAtom = Atom(name: '_HomeViewModelBase.weather');
 
@@ -135,7 +142,8 @@ currentPosition: ${currentPosition},
 finishMarker: ${finishMarker},
 currentMapType: ${currentMapType},
 isPositionNotNull: ${isPositionNotNull},
-isWeatherNotNull: ${isWeatherNotNull}
+isWeatherNotNull: ${isWeatherNotNull},
+isFinishNotNull: ${isFinishNotNull}
     ''';
   }
 }

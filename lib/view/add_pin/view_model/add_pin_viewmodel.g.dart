@@ -24,6 +24,21 @@ mixin _$AddPinViewModel on _AddPinViewModelBase, Store {
     });
   }
 
+  final _$isLoadingAtom = Atom(name: '_AddPinViewModelBase.isLoading');
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   final _$_AddPinViewModelBaseActionController =
       ActionController(name: '_AddPinViewModelBase');
 
@@ -39,9 +54,21 @@ mixin _$AddPinViewModel on _AddPinViewModelBase, Store {
   }
 
   @override
+  dynamic _changeLoading() {
+    final _$actionInfo = _$_AddPinViewModelBaseActionController.startAction(
+        name: '_AddPinViewModelBase._changeLoading');
+    try {
+      return super._changeLoading();
+    } finally {
+      _$_AddPinViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-pin: ${pin}
+pin: ${pin},
+isLoading: ${isLoading}
     ''';
   }
 }
