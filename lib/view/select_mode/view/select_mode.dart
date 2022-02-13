@@ -19,7 +19,8 @@ class SelectModeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    viewModel = SelectModeViewModel();
+    viewModel = SelectModeViewModel(context);
+    print(viewModel.markers);
     return Scaffold(
       floatingActionButton: buildFloatingButton(travelModel,context),
       body: ListView(
@@ -42,7 +43,37 @@ class SelectModeView extends StatelessWidget {
                 duration: 500.millisecondsDuration,
                 child: viewModel.isCar ? arabaCard() : yurumeCard(),
               );
-            })
+            }),
+            Observer(builder: (_) {
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 1.5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                      target: viewModel.lastMapPosition,
+                      zoom: 8.0,
+                    ),
+                    mapType: viewModel.currentMapType,
+                    markers: viewModel.markers,
+                    onCameraMove: viewModel.onCameraMove,
+                    myLocationButtonEnabled: false,
+                    myLocationEnabled: true,
+                    zoomControlsEnabled: true,
+                    onMapCreated: (GoogleMapController controller) {
+                      viewModel.mapController = controller;
+                    },
+                  ),
+                ),
+              ),
+            );
+          }),
           ]),
     );
   }

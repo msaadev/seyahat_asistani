@@ -50,40 +50,6 @@ abstract class _FaceDetectorModelBase with Store {
 
   }
 
- /*   void checkDistancesPeriodically() async {
-    getCurrentLocation();
-    //print(allData);
-    if (currentPosition != null) {
-      for (int i = 0; i < allData.length; i++) {
-        print(getDistance(
-            double.parse(allData[i]["latitude"].toString()),
-            double.parse(allData[i]["longitude"].toString()),
-            currentPosition!.latitude,
-            currentPosition!.longitude));
-
-        if (getDistance(
-                double.parse(allData[i]["latitude"].toString()),
-                double.parse(allData[i]["longitude"].toString()),
-                currentPosition!.latitude,
-                currentPosition!.longitude) <
-            0.01) {
-          print("markerss : ");
-          print(allData[i]);
-          await _speak(allData[i]['description']);
-          if (await Vibration.hasCustomVibrationsSupport()) {
-            await Vibration.vibrate(duration: 1000);
-          } else {
-            await Vibration.vibrate();
-            await Future.delayed(Duration(milliseconds: 500));
-            await Vibration.vibrate();
-            
-          }
-          //closeMarkers.add(markers.)
-        }
-      }
-    }
-  } */
-
     @action
   getCurrentLocation() async {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
@@ -106,63 +72,6 @@ abstract class _FaceDetectorModelBase with Store {
     });
   }
 
-    double getDistance(double latitude, double longitude, double latitudeUser,
-      double longitudeUser) {
-    var p = 0.017453292519943295;
-    var c = cos;
-    var a = 0.5 -
-        c((latitudeUser - latitude) * p) / 2 +
-        c(latitude * p) *
-            c(latitudeUser * p) *
-            (1 - c((longitudeUser - longitude) * p)) /
-            2;
-    return 12742 * asin(sqrt(a));
-  }
-
-  /* Future _speak(String text) async {
-    if (text != null) {
-      if (text.isNotEmpty) {
-        await flutterTts.awaitSpeakCompletion(true);
-        await flutterTts.speak(text);
-      }
-    }
-  } */
-
- /*   Future<void> getData({
-    required BuildContext context,
-  }) async {
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _collectionRef.get();
-    // Get data from docs and convert map to List
-    allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    if (allData != null) {
-      for (int i = 0; i < allData.length; i++) {
-        var item = allData[i];
-
-        markers.add(Marker(
-          onTap: () {
-            AppConstants().showModal(
-                context: context,
-                child: ModalContent(
-                  item: item,
-                  onTap: (pinId) async {
-                    await deletePost(pinId).then((value) =>
-                        AppConstants.showSuccesToast('Başarılı',
-                            subTitle: 'Pin kaldırma talebiniz alınmıştır'));
-                  },
-                ));
-          },
-          markerId: MarkerId(allData[i]['pinId'].toString()),
-          position: LatLng(double.parse(allData[i]['latitude'].toString()),
-              double.parse(allData[i]['longitude'].toString())),
-          infoWindow: InfoWindow(title: allData[i]['description'].toString()),
-          icon: BitmapDescriptor.defaultMarker,
-        ));
-
-        //print(getDistance(double.parse(allData[i]["latitude"].toString()), double.parse(allData[i]["longitude"].toString()), currentPosition.latitude, currentPosition.longitude));
-      }
-    }
-  } */
 
     Container statisticCard(BuildContext context, TravelModel travelModel) {
     String? cacheText;
