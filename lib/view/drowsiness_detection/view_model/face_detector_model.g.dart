@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_view_model.dart';
+part of 'face_detector_model.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,39 +8,9 @@ part of 'home_view_model.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$HomeViewModel on _HomeViewModelBase, Store {
-  Computed<bool>? _$isPositionNotNullComputed;
-
-  @override
-  bool get isPositionNotNull => (_$isPositionNotNullComputed ??= Computed<bool>(
-          () => super.isPositionNotNull,
-          name: '_HomeViewModelBase.isPositionNotNull'))
-      .value;
-  Computed<bool>? _$isWeatherNotNullComputed;
-
-  @override
-  bool get isWeatherNotNull => (_$isWeatherNotNullComputed ??= Computed<bool>(
-          () => super.isWeatherNotNull,
-          name: '_HomeViewModelBase.isWeatherNotNull'))
-      .value;
-
-  final _$weatherAtom = Atom(name: '_HomeViewModelBase.weather');
-
-  @override
-  Weather? get weather {
-    _$weatherAtom.reportRead();
-    return super.weather;
-  }
-
-  @override
-  set weather(Weather? value) {
-    _$weatherAtom.reportWrite(value, super.weather, () {
-      super.weather = value;
-    });
-  }
-
+mixin _$FaceDetectorModel on _FaceDetectorModelBase, Store {
   final _$currentPositionAtom =
-      Atom(name: '_HomeViewModelBase.currentPosition');
+      Atom(name: '_FaceDetectorModelBase.currentPosition');
 
   @override
   Position? get currentPosition {
@@ -55,7 +25,7 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     });
   }
 
-  final _$markersAtom = Atom(name: '_HomeViewModelBase.markers');
+  final _$markersAtom = Atom(name: '_FaceDetectorModelBase.markers');
 
   @override
   Set<Marker> get markers {
@@ -70,7 +40,7 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     });
   }
 
-  final _$closeMarkersAtom = Atom(name: '_HomeViewModelBase.closeMarkers');
+  final _$closeMarkersAtom = Atom(name: '_FaceDetectorModelBase.closeMarkers');
 
   @override
   Set<Marker> get closeMarkers {
@@ -86,7 +56,7 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
   }
 
   final _$lastMapPositionAtom =
-      Atom(name: '_HomeViewModelBase.lastMapPosition');
+      Atom(name: '_FaceDetectorModelBase.lastMapPosition');
 
   @override
   LatLng get lastMapPosition {
@@ -101,7 +71,8 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     });
   }
 
-  final _$currentMapTypeAtom = Atom(name: '_HomeViewModelBase.currentMapType');
+  final _$currentMapTypeAtom =
+      Atom(name: '_FaceDetectorModelBase.currentMapType');
 
   @override
   MapType get currentMapType {
@@ -116,16 +87,23 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     });
   }
 
-  final _$getCurrentWeatherAsyncAction =
-      AsyncAction('_HomeViewModelBase.getCurrentWeather');
+  final _$allDataAtom = Atom(name: '_FaceDetectorModelBase.allData');
 
   @override
-  Future getCurrentWeather() {
-    return _$getCurrentWeatherAsyncAction.run(() => super.getCurrentWeather());
+  dynamic get allData {
+    _$allDataAtom.reportRead();
+    return super.allData;
+  }
+
+  @override
+  set allData(dynamic value) {
+    _$allDataAtom.reportWrite(value, super.allData, () {
+      super.allData = value;
+    });
   }
 
   final _$getCurrentLocationAsyncAction =
-      AsyncAction('_HomeViewModelBase.getCurrentLocation');
+      AsyncAction('_FaceDetectorModelBase.getCurrentLocation');
 
   @override
   Future getCurrentLocation() {
@@ -133,42 +111,40 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
         .run(() => super.getCurrentLocation());
   }
 
-  final _$_HomeViewModelBaseActionController =
-      ActionController(name: '_HomeViewModelBase');
+  final _$_FaceDetectorModelBaseActionController =
+      ActionController(name: '_FaceDetectorModelBase');
 
   @override
   dynamic onCameraMove(CameraPosition cameraPosition) {
-    final _$actionInfo = _$_HomeViewModelBaseActionController.startAction(
-        name: '_HomeViewModelBase.onCameraMove');
+    final _$actionInfo = _$_FaceDetectorModelBaseActionController.startAction(
+        name: '_FaceDetectorModelBase.onCameraMove');
     try {
       return super.onCameraMove(cameraPosition);
     } finally {
-      _$_HomeViewModelBaseActionController.endAction(_$actionInfo);
+      _$_FaceDetectorModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic onAddMarkerButtonPressed() {
-    final _$actionInfo = _$_HomeViewModelBaseActionController.startAction(
-        name: '_HomeViewModelBase.onAddMarkerButtonPressed');
+    final _$actionInfo = _$_FaceDetectorModelBaseActionController.startAction(
+        name: '_FaceDetectorModelBase.onAddMarkerButtonPressed');
     try {
       return super.onAddMarkerButtonPressed();
     } finally {
-      _$_HomeViewModelBaseActionController.endAction(_$actionInfo);
+      _$_FaceDetectorModelBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   String toString() {
     return '''
-weather: ${weather},
 currentPosition: ${currentPosition},
 markers: ${markers},
 closeMarkers: ${closeMarkers},
 lastMapPosition: ${lastMapPosition},
 currentMapType: ${currentMapType},
-isPositionNotNull: ${isPositionNotNull},
-isWeatherNotNull: ${isWeatherNotNull}
+allData: ${allData}
     ''';
   }
 }
