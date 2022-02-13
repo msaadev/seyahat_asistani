@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
-import 'package:seyahat_asistani/view/select_mode/view/select_mode.dart';
+import '../../select_mode/view/select_mode.dart';
 import 'package:weather/weather.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/models/travel_model.dart';
@@ -46,7 +46,6 @@ abstract class _HomeViewModelBase with Store {
   @observable
   MapType currentMapType = MapType.normal;
 
-
   @action
   getCurrentWeather() async {
     if (isPositionNotNull) {
@@ -55,8 +54,6 @@ abstract class _HomeViewModelBase with Store {
       weather = w;
     }
   }
-
-  
 
   @action
   streamPosition() {
@@ -120,7 +117,14 @@ abstract class _HomeViewModelBase with Store {
   @action
   addMarker(LatLng position) {
     finishMarker = position;
-    NavigationService.instance.navigateToPageWidget(page: SelectModeView(travelModel: TravelModel(finish: finishMarker! ,fuel: 7,start: LatLng(currentPosition!.latitude,currentPosition!.longitude),weather: weather)));
+    NavigationService.instance.navigateToPageWidget(
+        page: SelectModeView(
+            travelModel: TravelModel(
+                finish: finishMarker!,
+                fuel: 7,
+                start: LatLng(
+                    currentPosition!.latitude, currentPosition!.longitude),
+                weather: weather)));
   }
 
   TravelModel setTravelModel() {

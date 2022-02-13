@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
-import 'package:seyahat_asistani/core/models/travel_model.dart';
+import '../init/cache/cache_manager.dart';
+import '../models/travel_model.dart';
 import 'package:uuid/uuid.dart';
 
 import '../models/user.dart';
@@ -17,7 +17,8 @@ class DatabaseService {
   final CollectionReference usersRef =
       FirebaseFirestore.instance.collection('users');
 
-  final CollectionReference pinsRef = FirebaseFirestore.instance.collection('pins');
+  final CollectionReference pinsRef =
+      FirebaseFirestore.instance.collection('pins');
 
   Future updateUserData(String email, String name, String fuelCost,
       String totalCalories, String totalDrive, String totalWalk) async {
@@ -37,8 +38,8 @@ class DatabaseService {
     if (user != null) {
       var newFuel =
           (double.tryParse(user.fuelCost) ?? 0) + (!isCar ? 0 : travel.fuel);
-      var newCalorie =
-          (double.tryParse(user.totalCalories) ?? 0) + (!isCar ? 0 : travel.calories);
+      var newCalorie = (double.tryParse(user.totalCalories) ?? 0) +
+          (!isCar ? 0 : travel.calories);
       var newWalk = (double.tryParse(user.totalWalk) ?? 0) +
           (!isCar ? travel.distance : 0);
       var newDrive = (double.tryParse(user.totalDrive) ?? 0) +
@@ -66,13 +67,13 @@ class DatabaseService {
     }
   }
 
- Future createPinInFirestore (
+  Future createPinInFirestore(
     String description,
     double latitude,
     double longitude,
     //DocumentSnapshot doc
   ) async {
-    String pinId = Uuid().v4();
+    String pinId = const Uuid().v4();
     return await pinsRef.doc(pinId).set({
       "pinId": pinId,
       "description": description,
@@ -81,8 +82,8 @@ class DatabaseService {
     });
   }
 
-  getUserData(String user_uid) async {
-    DocumentSnapshot documentSnaphot = await usersRef.doc(user_uid).get();
+  getUserData(String userUid) async {
+    DocumentSnapshot documentSnaphot = await usersRef.doc(userUid).get();
 
     return documentSnaphot;
   }

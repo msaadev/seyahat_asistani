@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:seyahat_asistani/main.dart';
+import '../../../../main.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/init/cache/cache_manager.dart';
@@ -26,9 +26,8 @@ abstract class _SignupViewModelBase with Store {
     await DatabaseService(uid: user!.uid).updateUserData(
         email, name, fuelCost, totalCalories, totalDrive, totalWalk);
     if (result.user != null) {
-      print("user uuidd => ${result.user!.uid}");
       var dat = DatabaseService.instance.getUserData(result.user!.uid);
-      var userdata;
+      UserData userdata;
       dat.then((e) async {
         userdata = UserData(
             uid: e.data()["uid"],

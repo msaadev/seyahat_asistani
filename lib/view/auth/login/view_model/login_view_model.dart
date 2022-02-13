@@ -1,13 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:seyahat_asistani/core/constants/app_constants.dart';
-import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
-import 'package:seyahat_asistani/core/init/navigation/navigation_service.dart';
-import 'package:seyahat_asistani/core/models/user.dart';
-import 'package:seyahat_asistani/main.dart';
-import 'package:seyahat_asistani/view/home/view/home_view.dart';
+import '../../../../core/constants/app_constants.dart';
+import '../../../../core/init/cache/cache_manager.dart';
+import '../../../../core/init/navigation/navigation_service.dart';
+import '../../../../core/models/user.dart';
+import '../../../../main.dart';
+import '../../../home/view/home_view.dart';
 
 import '../../../../core/services/database_service.dart';
 part 'login_view_model.g.dart';
@@ -21,7 +19,7 @@ abstract class _LoginViewModelBase with Store {
         email: email, password: password);
     if (request.user != null) {
       var dat = DatabaseService.instance.getUserData(request.user!.uid);
-      var userdata;
+      UserData userdata;
       dat.then((e) async {
         userdata = UserData(
             uid: e.data()["uid"],

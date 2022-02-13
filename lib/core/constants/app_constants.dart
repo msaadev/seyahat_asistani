@@ -51,5 +51,5 @@ class AppConstants {
         });
   }
 
-  static const LatLng ist =  LatLng(41.00203067448723, 28.997030708214982);
+  static const LatLng ist = LatLng(41.00203067448723, 28.997030708214982);
 }

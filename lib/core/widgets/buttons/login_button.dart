@@ -32,7 +32,7 @@ class LoginButton extends StatelessWidget {
     return Row(
       children: [
         10.wSized,
-       const Icon(
+        const Icon(
           Icons.arrow_forward_ios,
           size: 18,
           color: AppConstants.BUTTON,
@@ -44,7 +44,7 @@ class LoginButton extends StatelessWidget {
   Row get back {
     return Row(
       children: [
-       const Icon(
+        const Icon(
           Icons.arrow_back_ios,
           size: 18,
           color: AppConstants.BUTTON,

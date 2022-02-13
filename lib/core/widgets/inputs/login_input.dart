@@ -36,14 +36,14 @@ class LoginInput extends StatelessWidget {
               .copyWith(color: Colors.red.shade200, fontSize: 10),
           prefixIcon: Icon(
             icon ?? Icons.mail,
-            color: Color(0xff7c807f),
+            color: const Color(0xff7c807f),
           ),
           hintText: hint,
           hintStyle: context.textTheme.bodyText1!.copyWith(
-            color: Color(0xff7c807f),
+            color: const Color(0xff7c807f),
           ),
           filled: true,
-          fillColor: Color(0xffe7edeb),
+          fillColor: const Color(0xffe7edeb),
           enabledBorder: buildBorder,
           border: buildBorder,
           errorBorder: buildBorder,
@@ -57,7 +57,7 @@ class LoginInput extends StatelessWidget {
 
   OutlineInputBorder get buildBorder => OutlineInputBorder(
       borderRadius: 0.radius5,
-      borderSide: BorderSide(
+      borderSide: const BorderSide(
           // color: AppConstants.PRIMARY_COLOR,
           color: Colors.transparent,
           width: 0));

@@ -1,20 +1,17 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
-import 'package:seyahat_asistani/core/models/travel_model.dart';
 
-import '../../../core/constants/app_constants.dart';
+import '../../../core/models/travel_model.dart';
+
 part 'face_detector_model.g.dart';
 
 class FaceDetectorModel = _FaceDetectorModelBase with _$FaceDetectorModel;
 
 abstract class _FaceDetectorModelBase with Store {
-
   @observable
   Position? currentPosition;
 
@@ -28,18 +25,17 @@ abstract class _FaceDetectorModelBase with Store {
   @observable
   MapType currentMapType = MapType.normal;
 
-   @observable
+  @observable
   var allData;
   CollectionReference _collectionRef =
       FirebaseFirestore.instance.collection('pins');
-
 
   @action
   onCameraMove(CameraPosition cameraPosition) {
     lastMapPosition = cameraPosition.target;
   }
 
-   @action
+  @action
   onAddMarkerButtonPressed() {
     markers.clear();
     markers.add(Marker(
@@ -47,10 +43,9 @@ abstract class _FaceDetectorModelBase with Store {
       position: lastMapPosition,
       icon: BitmapDescriptor.defaultMarker,
     ));
-
   }
 
-    @action
+  @action
   getCurrentLocation() async {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
@@ -59,11 +54,10 @@ abstract class _FaceDetectorModelBase with Store {
       mapController.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
-            target: LatLng(position.latitude, position.longitude),
-            zoom: 18.0,
-            tilt: 80,
-            bearing: 30
-          ),
+              target: LatLng(position.latitude, position.longitude),
+              zoom: 18.0,
+              tilt: 80,
+              bearing: 30),
         ),
       );
     }).catchError((e) {
@@ -72,8 +66,7 @@ abstract class _FaceDetectorModelBase with Store {
     });
   }
 
-
-    Container statisticCard(BuildContext context, TravelModel travelModel) {
+  Container statisticCard(BuildContext context, TravelModel travelModel) {
     String? cacheText;
 
     cacheText = travelModel.weather!.weatherDescription;
@@ -105,6 +98,4 @@ abstract class _FaceDetectorModelBase with Store {
       ),
     );
   }
-
-  
 }

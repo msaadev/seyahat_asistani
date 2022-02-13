@@ -35,7 +35,7 @@ class UserData {
       totalWalk: doc['totalWalk'],
     );
   }
-  
+
   factory UserData.fromJson(Map doc) {
     return UserData(
       uid: doc['uid'],
@@ -50,13 +50,13 @@ class UserData {
 
   Map get toJson {
     return {
-      'uid':uid,
-      'email':email,
-      'name':name,
-      'fuelCost':fuelCost,
-      'totalCalories':totalCalories,
-      'totalDrive':totalDrive,
-      'totalWalk':totalWalk,
+      'uid': uid,
+      'email': email,
+      'name': name,
+      'fuelCost': fuelCost,
+      'totalCalories': totalCalories,
+      'totalDrive': totalDrive,
+      'totalWalk': totalWalk,
     };
   }
 }
