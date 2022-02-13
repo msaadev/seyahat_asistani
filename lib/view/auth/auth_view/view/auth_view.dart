@@ -36,11 +36,7 @@ class _AuthViewState extends State<AuthView> {
       body: Container(
         height: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Colors.blue, Colors.blueGrey],
-          ),
+          color: Color.fromRGBO(1, 35, 64, 1),
         ),
         child: ListView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
