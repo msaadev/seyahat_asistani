@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lib_msaadev/lib_msaadev.dart';
 
 class AppConstants {
@@ -49,4 +50,6 @@ class AppConstants {
           );
         });
   }
+
+  static const LatLng ist =  LatLng(41.00203067448723, 28.997030708214982);
 }

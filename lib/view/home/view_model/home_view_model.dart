@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
@@ -47,7 +46,6 @@ abstract class _HomeViewModelBase with Store {
   @observable
   MapType currentMapType = MapType.normal;
 
-  PolylinePoints polylinePoints = PolylinePoints();
 
   @action
   getCurrentWeather() async {
@@ -55,11 +53,10 @@ abstract class _HomeViewModelBase with Store {
       Weather w = await weatherFactory.currentWeatherByLocation(
           currentPosition!.latitude, currentPosition!.longitude);
       weather = w;
-      print(weather);
     }
   }
 
-  final LatLng ist = LatLng(41.00203067448723, 28.997030708214982);
+  
 
   @action
   streamPosition() {

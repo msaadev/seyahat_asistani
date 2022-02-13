@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lib_msaadev/lib_msaadev.dart';
+import 'package:seyahat_asistani/core/constants/app_constants.dart';
 import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
-import 'package:seyahat_asistani/view/drowsiness_detection/view/face_detector_view.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:seyahat_asistani/core/init/navigation/navigation_service.dart';
+import 'package:seyahat_asistani/view/add_pin/view/add_pin_view.dart';
 import '../view_model/home_view_model.dart';
 
 class HomeView extends StatefulWidget {
@@ -29,7 +31,21 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      appBar: AppBar(
+        actions: [
+          TextButton(
+              onPressed: () {
+                if (viewModel.isPositionNotNull) {
+                  NavigationService.instance.navigateToPageWidget(
+                      page: AddPinView(
+                          myPosition: LatLng(
+                              viewModel.currentPosition!.latitude,
+                              viewModel.currentPosition!.longitude)));
+                }
+              },
+              child: Text('Pin Ekle'))
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         heroTag: '1',
         onPressed: () {
@@ -52,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height / 15),
+          10.hSized,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -84,7 +100,7 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height / 30),
+          10.hSized,
           Observer(builder: (_) {
             return Container(
               width: MediaQuery.of(context).size.width,
@@ -99,21 +115,22 @@ class _HomeViewState extends State<HomeView> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: GoogleMap(
-                        initialCameraPosition: CameraPosition(
-                          target: viewModel.ist,
+                        initialCameraPosition: const CameraPosition(
+                          target: AppConstants.ist,
                           zoom: 8.0,
                         ),
                         mapType: viewModel.currentMapType,
                         markers: {
-                           Marker(markerId: MarkerId('finish'),
-                          position:  viewModel.finishMarker ?? LatLng(0, 0)
-                          )
+                          Marker(
+                              markerId: const MarkerId('finish'),
+                              position:
+                                  viewModel.finishMarker ?? const LatLng(0, 0))
                         },
                         myLocationButtonEnabled: false,
                         myLocationEnabled: true,
                         zoomControlsEnabled: true,
-                        onLongPress: (position){
-                            viewModel.addMarker(position);
+                        onLongPress: (position) {
+                          viewModel.addMarker(position);
                         },
                         onMapCreated: (GoogleMapController controller) {
                           viewModel.mapController = controller;
