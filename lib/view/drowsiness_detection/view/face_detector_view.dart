@@ -10,7 +10,8 @@ import 'package:seyahat_asistani/view/drowsiness_detection/view/camera_view.dart
 import '../view_model/face_detector_model.dart';
 
 class FaceDetectorView extends StatefulWidget {
-  const FaceDetectorView({Key? key, required this.travelModel}) : super(key: key);
+  const FaceDetectorView({Key? key, required this.travelModel})
+      : super(key: key);
 
   final TravelModel travelModel;
 
@@ -108,44 +109,12 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: FloatingActionButton(
-              onPressed: () {
-                viewModel.mapController.animateCamera(
-                  CameraUpdate.newCameraPosition(
-                    CameraPosition(
-                      target: LatLng(
-                        viewModel.currentPosition!.latitude,
-                        viewModel.currentPosition!.longitude,
-                      ),
-                      zoom: 18.0,
-                    ),
-                  ),
-                );
-              },
-              child: Icon(Icons.my_location),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FloatingActionButton(
-              onPressed: () async {
-                viewModel.onAddMarkerButtonPressed();
-              },
-              child: Icon(Icons.add),
-            ),
-          ),
-        ],
-      ),
       body: Column(
         children: [
           Observer(builder: (_) {
             return Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2,
+              height: MediaQuery.of(context).size.height / 1.5,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
               ),
@@ -177,7 +146,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
             );
           }),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CameraView(
                   title: "Face Detector",
@@ -188,9 +157,7 @@ class _FaceDetectorViewState extends State<FaceDetectorView> {
                   initialDirection: CameraLensDirection.front,
                   leftEye: leftEyeOpenProb,
                   rightEye: rightEyeOpenProb),
-              Container(
-                child: Column(children: [Text("")]),
-              )
+              viewModel.statisticCard(context, widget.travelModel)
             ],
           ),
         ],

@@ -35,7 +35,7 @@ class DatabaseService {
       var newFuel =
           (double.tryParse(user.fuelCost) ?? 0) + (!isCar ? 0 : travel.fuel);
       var newCalorie =
-          (double.tryParse(user.totalCalories) ?? 0) + travel.calories;
+          (double.tryParse(user.totalCalories) ?? 0) + (!isCar ? 0 : travel.calories);
       var newWalk = (double.tryParse(user.totalWalk) ?? 0) +
           (!isCar ? travel.distance : 0);
       var newDrive = (double.tryParse(user.totalDrive) ?? 0) +

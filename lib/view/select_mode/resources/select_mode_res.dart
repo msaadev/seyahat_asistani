@@ -1,11 +1,17 @@
 part of '../view/select_mode.dart';
 
 extension SelectModeRes on SelectModeView {
-  FloatingActionButton buildFloatingButton() {
+  FloatingActionButton buildFloatingButton(TravelModel travelModel, BuildContext context) {
     return FloatingActionButton.extended(
-        onPressed: () {
-          DatabaseService.instance
+        onPressed: () async {
+          await DatabaseService(uid: CacheManager.instance.getUser!.uid)
               .updateUserDataOnTour(travelModel, viewModel.isCar);
+
+          if(viewModel.isCar) {
+             NavigationService.instance.navigateToPageWidget(page: FaceDetectorView(travelModel: travelModel));
+          } else {
+            Navigator.pop(context);
+          }
           // NavigationService.instance.navigateToPageWidget(page: page);
         },
         label: const Text('Başlat'));
@@ -58,7 +64,7 @@ extension SelectModeRes on SelectModeView {
             backgroundColor: isGood ? Colors.green : Colors.red,
           ),
           10.wSized,
-          Text(label),
+          Expanded(child: Text(label, maxLines: 2, overflow: TextOverflow.ellipsis,)),
         ],
       ),
     );
