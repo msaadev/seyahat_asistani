@@ -10,7 +10,7 @@ class CustomButton extends StatefulWidget {
       {Key? key,
       required this.text,
       this.onTap,
-      this.backgroundColor = Colors.blue})
+      this.backgroundColor = const Color.fromRGBO(4, 217, 57,1)})
       : super(key: key);
 
   @override

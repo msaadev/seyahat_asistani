@@ -4,10 +4,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lib_msaadev/lib_msaadev.dart';
 
 class AppConstants {
-  static const Color BACKGROUND_COLOR = Color(0xffFFFFFF);
-  static const Color LOGIN_END = Color(0xFF4084ff);
-  static const LOGIN_START = Color(0xFF4650fe);
-  static const BUTTON = Color(0xff4469ff);
+  static const Color BACKGROUND_COLOR = Color.fromRGBO(4, 217, 57,1);
+  static const Color LOGIN_END = Color.fromRGBO(1, 35, 64, 1);
+  static const LOGIN_START = Color.fromRGBO(1, 35, 64, 1);
+  static const BUTTON = Color.fromRGBO(1, 35, 64, 1);
 
   static String? validator(String? value, {int len = 4, String message = '*'}) {
     if (value!.length < len) {
