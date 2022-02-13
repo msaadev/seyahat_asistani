@@ -55,49 +55,18 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     });
   }
 
-  final _$markersAtom = Atom(name: '_HomeViewModelBase.markers');
+  final _$finishMarkerAtom = Atom(name: '_HomeViewModelBase.finishMarker');
 
   @override
-  Set<Marker> get markers {
-    _$markersAtom.reportRead();
-    return super.markers;
+  LatLng? get finishMarker {
+    _$finishMarkerAtom.reportRead();
+    return super.finishMarker;
   }
 
   @override
-  set markers(Set<Marker> value) {
-    _$markersAtom.reportWrite(value, super.markers, () {
-      super.markers = value;
-    });
-  }
-
-  final _$closeMarkersAtom = Atom(name: '_HomeViewModelBase.closeMarkers');
-
-  @override
-  Set<Marker> get closeMarkers {
-    _$closeMarkersAtom.reportRead();
-    return super.closeMarkers;
-  }
-
-  @override
-  set closeMarkers(Set<Marker> value) {
-    _$closeMarkersAtom.reportWrite(value, super.closeMarkers, () {
-      super.closeMarkers = value;
-    });
-  }
-
-  final _$lastMapPositionAtom =
-      Atom(name: '_HomeViewModelBase.lastMapPosition');
-
-  @override
-  LatLng get lastMapPosition {
-    _$lastMapPositionAtom.reportRead();
-    return super.lastMapPosition;
-  }
-
-  @override
-  set lastMapPosition(LatLng value) {
-    _$lastMapPositionAtom.reportWrite(value, super.lastMapPosition, () {
-      super.lastMapPosition = value;
+  set finishMarker(LatLng? value) {
+    _$finishMarkerAtom.reportWrite(value, super.finishMarker, () {
+      super.finishMarker = value;
     });
   }
 
@@ -137,11 +106,22 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
       ActionController(name: '_HomeViewModelBase');
 
   @override
-  dynamic onCameraMove(CameraPosition cameraPosition) {
+  dynamic streamPosition() {
     final _$actionInfo = _$_HomeViewModelBaseActionController.startAction(
-        name: '_HomeViewModelBase.onCameraMove');
+        name: '_HomeViewModelBase.streamPosition');
     try {
-      return super.onCameraMove(cameraPosition);
+      return super.streamPosition();
+    } finally {
+      _$_HomeViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic addMarker(LatLng position) {
+    final _$actionInfo = _$_HomeViewModelBaseActionController.startAction(
+        name: '_HomeViewModelBase.addMarker');
+    try {
+      return super.addMarker(position);
     } finally {
       _$_HomeViewModelBaseActionController.endAction(_$actionInfo);
     }
@@ -152,9 +132,7 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     return '''
 weather: ${weather},
 currentPosition: ${currentPosition},
-markers: ${markers},
-closeMarkers: ${closeMarkers},
-lastMapPosition: ${lastMapPosition},
+finishMarker: ${finishMarker},
 currentMapType: ${currentMapType},
 isPositionNotNull: ${isPositionNotNull},
 isWeatherNotNull: ${isWeatherNotNull}

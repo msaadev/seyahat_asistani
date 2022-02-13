@@ -21,7 +21,8 @@ class AppConstants {
   }
 
   static void showSuccesToas({required String message}) {
-    baseToast(message: message, backColor: Colors.green, textColor: Colors.white);
+    baseToast(
+        message: message, backColor: Colors.green, textColor: Colors.white);
   }
 
   static void baseToast(

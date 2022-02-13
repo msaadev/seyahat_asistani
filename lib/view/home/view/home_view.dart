@@ -30,37 +30,22 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
-      floatingActionButton: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: FloatingActionButton(
-              onPressed: () {
-                viewModel.mapController.animateCamera(
-                  CameraUpdate.newCameraPosition(
-                    CameraPosition(
-                      target: LatLng(
-                        viewModel.currentPosition!.latitude,
-                        viewModel.currentPosition!.longitude,
-                      ),
-                      zoom: 18.0,
-                    ),
-                  ),
-                );
-              },
-              child: Icon(Icons.my_location),
+      floatingActionButton: FloatingActionButton(
+        heroTag: '1',
+        onPressed: () {
+          viewModel.mapController?.animateCamera(
+            CameraUpdate.newCameraPosition(
+              CameraPosition(
+                target: LatLng(
+                  viewModel.currentPosition!.latitude,
+                  viewModel.currentPosition!.longitude,
+                ),
+                zoom: 18.0,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FloatingActionButton(
-              onPressed: () async {
-                viewModel.onAddMarkerButtonPressed();
-              },
-              child: Icon(Icons.add),
-            ),
-          ),
-        ],
+          );
+        },
+        child: const Icon(Icons.my_location),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,9 +56,11 @@ class _HomeViewState extends State<HomeView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              viewModel.statisticCard(context, "Hava Durumu", "Hava"),
-              viewModel.statisticCard(context, "Yürünen Yol", "Yürüme"),
-              viewModel.statisticCard(context, "Arabayla Gidilen Yol", "Araba"),
+              Observer(
+                builder: (_) => statisticCard(context, "Hava Durumu", "Hava"),
+              ),
+              statisticCard(context, "Yürünen Yol", "Yürüme"),
+              statisticCard(context, "Arabayla Gidilen Yol", "Araba"),
             ],
           ),
           Padding(
@@ -113,15 +100,21 @@ class _HomeViewState extends State<HomeView> {
                       borderRadius: BorderRadius.circular(20),
                       child: GoogleMap(
                         initialCameraPosition: CameraPosition(
-                          target: viewModel.lastMapPosition,
+                          target: viewModel.ist,
                           zoom: 8.0,
                         ),
                         mapType: viewModel.currentMapType,
-                        markers: viewModel.markers,
-                        onCameraMove: viewModel.onCameraMove,
+                        markers: {
+                           Marker(markerId: MarkerId('finish'),
+                          position:  viewModel.finishMarker ?? LatLng(0, 0)
+                          )
+                        },
                         myLocationButtonEnabled: false,
                         myLocationEnabled: true,
                         zoomControlsEnabled: true,
+                        onLongPress: (position){
+                            viewModel.addMarker(position);
+                        },
                         onMapCreated: (GoogleMapController controller) {
                           viewModel.mapController = controller;
                         },
@@ -149,7 +142,47 @@ class _HomeViewState extends State<HomeView> {
       return Center(
           child: viewModel.isWeatherNotNull
               ? Text(viewModel.weather!.weatherDescription.toString())
-              : CircularProgressIndicator());
+              : const CircularProgressIndicator());
     });
+  }
+
+  Container statisticCard(BuildContext context, String header, String type) {
+    String? cacheText;
+
+    if (type == "Hava")
+      cacheText = viewModel.isWeatherNotNull
+          ? viewModel.weather!.weatherDescription
+          : "";
+    if (type == "Yürüme")
+      cacheText = CacheManager.instance.getUser!.totalWalk + " KM";
+    if (type == "Araba")
+      cacheText = CacheManager.instance.getUser!.totalDrive + " KM";
+
+    return Container(
+      width: MediaQuery.of(context).size.width / 3.5,
+      height: MediaQuery.of(context).size.height / 7,
+      decoration: BoxDecoration(
+        color: Colors.grey[400],
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(header,
+                    style: GoogleFonts.montserrat(
+                        fontSize: 14, fontWeight: FontWeight.bold))),
+          ),
+          Text(
+            cacheText!,
+            style: GoogleFonts.montserrat(
+                fontSize: 20, fontWeight: FontWeight.bold),
+          )
+        ],
+      ),
+    );
   }
 }
