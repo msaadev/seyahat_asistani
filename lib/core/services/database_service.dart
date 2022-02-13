@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
 import 'package:seyahat_asistani/core/models/travel_model.dart';
+import 'package:uuid/uuid.dart';
 
 import '../models/user.dart';
 
@@ -15,6 +16,8 @@ class DatabaseService {
   //collection reference
   final CollectionReference usersRef =
       FirebaseFirestore.instance.collection('users');
+
+  final CollectionReference pinsRef = FirebaseFirestore.instance.collection('pins');
 
   Future updateUserData(String email, String name, String fuelCost,
       String totalCalories, String totalDrive, String totalWalk) async {
@@ -61,6 +64,21 @@ class DatabaseService {
       CacheManager.instance.setUserData(newUser);
       return;
     }
+  }
+
+ Future createPinInFirestore (
+    String description,
+    double latitude,
+    double longitude,
+    //DocumentSnapshot doc
+  ) async {
+    String pinId = Uuid().v4();
+    return await pinsRef.doc(pinId).set({
+      "pinId": pinId,
+      "description": description,
+      "latitude": latitude,
+      "longitude": longitude,
+    });
   }
 
   getUserData(String user_uid) async {
