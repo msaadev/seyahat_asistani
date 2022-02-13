@@ -25,10 +25,11 @@ class SelectModeView extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             20.hSized,
             Text(
-              'Nasil gideceksiniz?',
+              'Nasıl gideceksiniz?',
               style: context.textTheme.headline4,
             ),
             20.hSized,
@@ -41,6 +42,7 @@ class SelectModeView extends StatelessWidget {
               );
             }),
             20.hSized,
+            _buildMapInfo(context),
             Expanded(
               child: Observer(builder: (_) {
                 return Container(
