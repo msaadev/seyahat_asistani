@@ -15,7 +15,6 @@ class ApplicationProvider {
   List<SingleChildWidget> dependItems = [
     ChangeNotifierProvider(create: (_) => MainNotifier()),
   ];
-  List<SingleChildWidget> uiChanges = [
-  ];
+  List<SingleChildWidget> uiChanges = [];
   List<SingleChildWidget> singleItems = [];
 }

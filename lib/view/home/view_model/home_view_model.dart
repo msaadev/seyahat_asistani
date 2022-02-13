@@ -1,18 +1,13 @@
 import 'dart:async';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
-import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
-import 'package:seyahat_asistani/core/init/navigation/navigation_service.dart';
+import 'package:seyahat_asistani/view/select_mode/view/select_mode.dart';
 import 'package:weather/weather.dart';
-import 'package:google_fonts/google_fonts.dart';
-
+import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/models/travel_model.dart';
-
 part 'home_view_model.g.dart';
 
 class HomeViewModel = _HomeViewModelBase with _$HomeViewModel;
@@ -44,13 +39,11 @@ abstract class _HomeViewModelBase with Store {
   @computed
   bool get isWeatherNotNull => weather != null;
 
-  late GoogleMapController mapController;
+  GoogleMapController? mapController;
+
   @observable
-  Set<Marker> markers = {};
-  @observable
-  Set<Marker> closeMarkers = {};
-  @observable
-  LatLng lastMapPosition = LatLng(37.3741, -122.0771);
+  LatLng? finishMarker;
+
   @observable
   MapType currentMapType = MapType.normal;
 
@@ -66,11 +59,16 @@ abstract class _HomeViewModelBase with Store {
     }
   }
 
+  final LatLng ist = LatLng(41.00203067448723, 28.997030708214982);
+
+  @action
   streamPosition() {
     positionStream = Geolocator.getPositionStream(
             locationSettings: const LocationSettings(
                 distanceFilter: 5, accuracy: LocationAccuracy.medium))
         .listen((event) {
+      mapController?.animateCamera(
+          CameraUpdate.newLatLng(LatLng(event.latitude, event.longitude)));
       debugPrint('listening');
       currentPosition = event;
       getCurrentWeather();
@@ -106,55 +104,12 @@ abstract class _HomeViewModelBase with Store {
     return position;
   }
 
-  Container statisticCard(BuildContext context, String header, String type) {
-    String? cacheText;
-
-    if (type == "Hava")
-      cacheText = isWeatherNotNull ? weather!.weatherDescription : "";
-    if (type == "Yürüme")
-      cacheText = CacheManager.instance.getUser!.totalWalk + " KM";
-    if (type == "Araba")
-      cacheText = CacheManager.instance.getUser!.totalDrive + " KM";
-
-    return Container(
-      width: MediaQuery.of(context).size.width / 3.5,
-      height: MediaQuery.of(context).size.height / 7,
-      decoration: BoxDecoration(
-        color: Colors.grey[400],
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-                alignment: Alignment.topCenter,
-                child: Text(header,
-                    style: GoogleFonts.montserrat(
-                        fontSize: 14, fontWeight: FontWeight.bold))),
-          ),
-          Text(
-            cacheText!,
-            style: GoogleFonts.montserrat(
-                fontSize: 20, fontWeight: FontWeight.bold),
-          )
-        ],
-      ),
-    );
-  }
-
-  @action
-  onCameraMove(CameraPosition cameraPosition) {
-    lastMapPosition = cameraPosition.target;
-  }
-
   @action
   getCurrentLocation() async {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       currentPosition = position;
-      mapController.animateCamera(
+      mapController?.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target: LatLng(position.latitude, position.longitude),
@@ -166,42 +121,16 @@ abstract class _HomeViewModelBase with Store {
   }
 
   @action
-  onAddMarkerButtonPressed() {
-    markers.clear();
-    markers.add(Marker(
-      markerId: MarkerId(lastMapPosition.toString()),
-      position: lastMapPosition,
-      icon: BitmapDescriptor.defaultMarker,
-    ));
-    //NavigationService.instance.navigateToPage()
-    print(getDistance(currentPosition!.latitude, currentPosition!.longitude,
-            markers.last.position.latitude, markers.last.position.longitude) /
-        1000);
-  }
-
-  getDistance(double originLatitude, double originLongitude,
-      double destinationLatitude, double destinationLongitude) {
-    double distance = Geolocator.distanceBetween(originLatitude,
-        originLongitude, destinationLatitude, destinationLongitude);
-    return distance;
+  addMarker(LatLng position) {
+    finishMarker = position;
+    NavigationService.instance.navigateToPageWidget(page: SelectModeView(travelModel: TravelModel(finish: finishMarker! ,fuel: 7,start: LatLng(currentPosition!.latitude,currentPosition!.longitude),weather: weather)));
   }
 
   TravelModel setTravelModel() {
-    double distance = getDistance(
-            currentPosition!.latitude,
-            currentPosition!.longitude,
-            markers.last.position.latitude,
-            markers.last.position.longitude) /
-        1000;
     return TravelModel(
         start: LatLng(currentPosition!.latitude, currentPosition!.longitude),
-        finish: LatLng(
-            markers.last.position.latitude, markers.last.position.longitude),
-        fuel: double.parse(CacheManager.instance.getUser!.fuelCost),
-        calories: distance / 1.6 * 250,
-        carbon: distance / 1.6 * 87,
-        distance: distance,
-        weatherDegree: weather!.temperature!.celsius,
-        weatherDesc: weather!.weatherDescription);
+        finish: LatLng(finishMarker!.latitude, finishMarker!.longitude),
+        fuel: 7,
+        weather: weather);
   }
 }

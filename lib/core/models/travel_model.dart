@@ -1,27 +1,31 @@
-import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:weather/weather.dart';
 
 class TravelModel {
   final LatLng start;
   final LatLng finish;
   final double fuel;
-  final double calories;
-  final double carbon;
-  final double distance;
-  final double? weatherDegree;
-  final String? weatherDesc;
+  late double calories;
+  late double carbon;
+  late double distance;
+  final Weather? weather;
+  late double totalFuel;
 
-  const TravelModel({
+  TravelModel({
     required this.start,
     required this.finish,
     required this.fuel,
-    required this.calories,
-    required this.carbon,
-    required this.distance,
-    required this.weatherDegree,
-    required this.weatherDesc,
-    }
-  );
+    this.weather,
+  }) {
+    distance = _calculateDistance;
+    calories = distance * 270;
+    carbon = distance * 0.17;
+    totalFuel = (distance / 100) * fuel;
+  }
 
+  double get _calculateDistance =>
+      Geolocator.distanceBetween(
+          start.latitude, start.longitude, finish.latitude, finish.longitude) /
+      1000;
 }
