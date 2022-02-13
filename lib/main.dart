@@ -40,6 +40,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light().copyWith(
+        scaffoldBackgroundColor: Color.fromRGBO(1, 35, 64, 1),
+        primaryColor: Color.fromRGBO(4, 217, 57,1),
           appBarTheme: const AppBarTheme(
               backgroundColor: Colors.transparent,
               elevation: 0,
