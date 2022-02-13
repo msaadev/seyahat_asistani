@@ -27,10 +27,10 @@ abstract class _LoginViewModelBase with Store {
             uid: e.data()["uid"],
             email: e.data()["email"],
             name: e.data()["name"],
-            fuelCost: e.data()["fuelCost"],
-            totalCalories: e.data()["totalCalories"],
-            totalDrive: e.data()["totalDrive"],
-            totalWalk: e.data()["totalWalk"]);
+            fuelCost: e.data()["fuelCost"].toString(),
+            totalCalories: e.data()["totalCalories"].toString(),
+            totalDrive: e.data()["totalDrive"].toString(),
+            totalWalk: e.data()["totalWalk"].toString());
         await CacheManager.instance.setUserData(userdata);
         NavigationService.instance
             .navigateToPageWidgetClear(page: const HomeView());
