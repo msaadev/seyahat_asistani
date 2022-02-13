@@ -128,17 +128,6 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
   }
 
   @override
-  dynamic onAddMarkerButtonPressed() {
-    final _$actionInfo = _$_HomeViewModelBaseActionController.startAction(
-        name: '_HomeViewModelBase.onAddMarkerButtonPressed');
-    try {
-      return super.onAddMarkerButtonPressed();
-    } finally {
-      _$_HomeViewModelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 weather: ${weather},
