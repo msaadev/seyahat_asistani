@@ -133,33 +133,14 @@ class _CameraViewState extends State<CameraView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("${widget.title}")),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "Keep your face inside the frame",
-              style: TextStyle(color: Colors.black, fontSize: 20),
-            ),
-          ),
-          Text("${widget.leftEye}"),
-          Text("${widget.rightEye}"),
-          Align(
-            alignment: Alignment.center,
-            child: DottedBorder(
-              child: ClipOval(child: _liveFeedBody()),
-              borderType: BorderType.Oval,
-              padding: EdgeInsets.all(6),
-              strokeWidth: 2,
-              dashPattern: [8, 4],
-              color: Colors.grey,
-            ),
-          )
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: Container(child: _liveFeedBody()),
+        ),
+      ],
     );
   }
 }
