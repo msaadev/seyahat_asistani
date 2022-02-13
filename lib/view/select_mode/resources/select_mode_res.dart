@@ -3,8 +3,8 @@ part of '../view/select_mode.dart';
 extension SelectModeRes on SelectModeView {
   FloatingActionButton buildFloatingButton() {
     return FloatingActionButton.extended(
-        onPressed: () {
-          DatabaseService.instance
+        onPressed: () async {
+          await DatabaseService(uid: CacheManager.instance.getUser!.uid)
               .updateUserDataOnTour(travelModel, viewModel.isCar);
           // NavigationService.instance.navigateToPageWidget(page: page);
         },
