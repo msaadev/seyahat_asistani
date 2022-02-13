@@ -21,24 +21,27 @@ extension SelectModeRes on SelectModeView {
 
   Center _buildMapInfo(BuildContext context) {
     return Center(
-            child: Card(
-              color: Colors.red,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Olağan dışıdurumlar harita üzerinde gösterilmektedir',
-                  style: context.textTheme.bodyText1
-                      ?.copyWith(color: Colors.white),
-                ),
-              ),
+      child: Card(
+        color: Theme.of(context).primaryColor,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              'Olağan dışıdurumlar harita üzerinde gösterilmektedir',
+              style: context.textTheme.bodyText1
+                  ?.copyWith(color: Theme.of(context).scaffoldBackgroundColor),
             ),
-          );
+          ),
+        ),
+      ),
+    );
   }
+
   SizedBox arabaCard() {
     return SizedBox(
       child: Card(
           margin: 0.paddingAll,
-          color: Colors.red.shade300,
+          color: Colors.red,
           child: Column(
             children: [
               buildItem(
@@ -56,7 +59,7 @@ extension SelectModeRes on SelectModeView {
 
   Card yurumeCard() {
     return Card(
-      color: Colors.green.shade300,
+      color: Colors.green,
       margin: 0.paddingAll,
       child: Column(
         children: [
@@ -84,6 +87,7 @@ extension SelectModeRes on SelectModeView {
           Expanded(
               child: Text(
             label,
+            style: TextStyle(color: Colors.white),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           )),
@@ -101,7 +105,6 @@ extension SelectModeRes on SelectModeView {
               child: SelectButton(
             label: 'Araba',
             isEnabled: viewModel.isCar,
-            enabledColor: Colors.red,
             tap: () => viewModel.change(true),
           )),
           10.wSized,
@@ -110,7 +113,6 @@ extension SelectModeRes on SelectModeView {
             isEnabled: !viewModel.isCar,
             tap: () => viewModel.change(false),
             label: 'Yürüme',
-            enabledColor: Colors.green,
           )),
         ],
       );

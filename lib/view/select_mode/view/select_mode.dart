@@ -30,31 +30,30 @@ class SelectModeView extends StatelessWidget {
             20.hSized,
             Text(
               'Nasıl gideceksiniz?',
-              style: context.textTheme.headline4,
+              style: context.textTheme.headline4
+                  ?.copyWith(color: Theme.of(context).primaryColor),
             ),
-            20.hSized,
+            10.hSized,
             _buildTopButtons(viewModel),
-            20.hSized,
+            10.hSized,
             Observer(builder: (_) {
               return AnimatedSwitcher(
                 duration: 500.millisecondsDuration,
                 child: viewModel.isCar ? arabaCard() : yurumeCard(),
               );
             }),
-            20.hSized,
+            10.hSized,
             _buildMapInfo(context),
+            2.hSized,
             Expanded(
               child: Observer(builder: (_) {
                 return Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 1.5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(5),
                       child: GoogleMap(
                         initialCameraPosition: CameraPosition(
                           target: viewModel.lastMapPosition,
