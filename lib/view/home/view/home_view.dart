@@ -44,12 +44,14 @@ class _HomeViewState extends State<HomeView> {
                               viewModel.currentPosition!.longitude)));
                 }
               },
-              child: const Text('Pin Ekle'))
+              child: Text('Yolda Anormal Durum Belirtin',
+                  style: GoogleFonts.montserrat(
+                      fontSize: 14, fontWeight: FontWeight.bold)))
         ],
       ),
       floatingActionButton: _buildFloatingButton(),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -66,8 +68,9 @@ class _HomeViewState extends State<HomeView> {
                 statisticCard(context, "Arabayla Gidilen Yol", "Araba"),
               ],
             ),
+            10.hSized,
             Card(
-              color: Colors.red.shade300,
+              color: Colors.red,
               child: SizedBox(
                 child: Center(
                   child: Text(
@@ -77,6 +80,20 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 height: 100,
+              ),
+            ),
+            10.hSized,
+            Card(
+              color: Theme.of(context).primaryColor,
+              child: SizedBox(
+                child: Center(
+                  child: Text(
+                    "Harita Üzerinde Gitmek İstediğiniz Konuma Tıklayın",
+                    style: GoogleFonts.montserrat(
+                        fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                height: 50,
               ),
             ),
             10.hSized,
@@ -159,7 +176,7 @@ class _HomeViewState extends State<HomeView> {
     }
 
     return Card(
-      color: Colors.grey[400],
+      color: Theme.of(context).primaryColor,
       child: Container(
         padding: 10.paddingAll,
         width: MediaQuery.of(context).size.width / 3.5,
@@ -173,6 +190,7 @@ class _HomeViewState extends State<HomeView> {
                     fontSize: 14, fontWeight: FontWeight.bold)),
             imageUrl != null
                 ? Image(
+                    height: MediaQuery.of(context).size.height / 10,
                     image: NetworkImage(
                       'http://openweathermap.org/img/wn/${imageUrl}@2x.png',
                     ),
