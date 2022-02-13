@@ -19,6 +19,21 @@ extension SelectModeRes on SelectModeView {
         label: const Text('Başlat'));
   }
 
+  Center _buildMapInfo(BuildContext context) {
+    return Center(
+            child: Card(
+              color: Colors.red,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Olağan dışıdurumlar harita üzerinde gösterilmektedir',
+                  style: context.textTheme.bodyText1
+                      ?.copyWith(color: Colors.white),
+                ),
+              ),
+            ),
+          );
+  }
   SizedBox arabaCard() {
     return SizedBox(
       child: Card(
