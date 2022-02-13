@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lib_msaadev/lib_msaadev.dart';
 import 'package:mobx/mobx.dart';
-import 'package:seyahat_asistani/core/init/navigation/navigation_service.dart';
-import 'package:seyahat_asistani/main.dart';
-import 'package:seyahat_asistani/view/auth/auth_view/view/auth_view.dart';
-import 'package:seyahat_asistani/view/home/view/home_view.dart';
+import '../../../core/init/navigation/navigation_service.dart';
+import '../../../main.dart';
+import '../../auth/auth_view/view/auth_view.dart';
+import '../../home/view/home_view.dart';
 part 'splash_viewmodel.g.dart';
 
 class SplashViewModel = _SplashViewModelBase with _$SplashViewModel;
@@ -21,7 +20,6 @@ abstract class _SplashViewModelBase with Store {
   void get checkLogin {
     Future.delayed(1.secondDuration).then((value) {
       navigationService.navigateToPageWidgetClear(page: const AuthView());
-      print(firebaseAuth.currentUser);
       if (firebaseAuth.currentUser == null) {
         navigationService.navigateToPageWidgetClear(page: const AuthView());
       } else {

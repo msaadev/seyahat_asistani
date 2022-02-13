@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
-import 'package:seyahat_asistani/core/init/providers/provider_list.dart';
-import 'package:seyahat_asistani/view/splash/view/splash_view.dart';
+import 'core/init/cache/cache_manager.dart';
 import 'core/init/navigation/navigation_service.dart';
+import 'core/init/providers/provider_list.dart';
+import 'view/splash/view/splash_view.dart';
 
 late List<CameraDescription> cameras;
 

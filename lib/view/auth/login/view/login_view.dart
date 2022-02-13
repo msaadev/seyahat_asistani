@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lib_msaadev/lib_msaadev.dart';
-import 'package:seyahat_asistani/view/auth/login/view_model/login_view_model.dart';
+import '../view_model/login_view_model.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/widgets/buttons/custom_button.dart';
@@ -117,7 +117,7 @@ class _LoginViewState extends State<LoginView> {
   void get login async {
     // await Future.delayed(5.secondDuration).then((value) => debugPrint('samil'));
     if (_key.currentState!.validate()) {
-     await  viewModel.login(email: _mail.text, password: _password.text);
+      await viewModel.login(email: _mail.text, password: _password.text);
     } else {
       AppConstants.showErrorToas(message: 'Lütfen gerekli yerleri doldurunuz');
     }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lib_msaadev/lib_msaadev.dart';
-import 'package:seyahat_asistani/view/auth/signup/view_model/signup_viewmodel.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/widgets/buttons/custom_button.dart';
 import '../../../../core/widgets/buttons/login_button.dart';
 import '../../../../core/widgets/inputs/login_input.dart';
+import '../view_model/signup_viewmodel.dart';
 
 class SignupView extends StatefulWidget {
   final PageController pageController;
@@ -123,7 +123,14 @@ class _SignupViewState extends State<SignupView> {
   void get signup async {
     if (_key.currentState!.validate()) {
       AppConstants.showSuccesToas(message: 'Kayıt başarılı');
-      await viewModel.register(email: _mail.text, password: _password.text, name: _name.text, fuelCost: _fuelCost.text, totalCalories: "0", totalDrive: "0", totalWalk: "0");
+      await viewModel.register(
+          email: _mail.text,
+          password: _password.text,
+          name: _name.text,
+          fuelCost: _fuelCost.text,
+          totalCalories: "0",
+          totalDrive: "0",
+          totalWalk: "0");
     } else {
       AppConstants.showErrorToas(message: 'Lütfen gerekli yerleri doldurunuz');
     }

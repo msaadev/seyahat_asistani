@@ -3,10 +3,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lib_msaadev/lib_msaadev.dart';
-import 'package:seyahat_asistani/core/constants/app_constants.dart';
-import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
-import 'package:seyahat_asistani/core/init/navigation/navigation_service.dart';
-import 'package:seyahat_asistani/view/add_pin/view/add_pin_view.dart';
+import '../../../core/constants/app_constants.dart';
+import '../../../core/init/cache/cache_manager.dart';
+import '../../../core/init/navigation/navigation_service.dart';
+import '../../add_pin/view/add_pin_view.dart';
 import '../view_model/home_view_model.dart';
 
 class HomeView extends StatefulWidget {
@@ -43,7 +43,7 @@ class _HomeViewState extends State<HomeView> {
                               viewModel.currentPosition!.longitude)));
                 }
               },
-              child: Text('Pin Ekle'))
+              child: const Text('Pin Ekle'))
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -166,14 +166,17 @@ class _HomeViewState extends State<HomeView> {
   Container statisticCard(BuildContext context, String header, String type) {
     String? cacheText;
 
-    if (type == "Hava")
+    if (type == "Hava") {
       cacheText = viewModel.isWeatherNotNull
           ? viewModel.weather!.weatherDescription
           : "";
-    if (type == "Yürüme")
+    }
+    if (type == "Yürüme") {
       cacheText = CacheManager.instance.getUser!.totalWalk + " KM";
-    if (type == "Araba")
+    }
+    if (type == "Araba") {
       cacheText = CacheManager.instance.getUser!.totalDrive + " KM";
+    }
 
     return Container(
       width: MediaQuery.of(context).size.width / 3.2,

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:seyahat_asistani/core/models/user.dart';
+import '../../models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheManager {

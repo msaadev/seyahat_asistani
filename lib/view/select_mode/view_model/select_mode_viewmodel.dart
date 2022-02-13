@@ -28,13 +28,14 @@ abstract class _SelectModeViewModelBase with Store {
   @observable
   Set<Marker> closeMarkers = {};
   @observable
-  LatLng lastMapPosition = LatLng(37.3741, -122.0771);
+  LatLng lastMapPosition = const LatLng(37.3741, -122.0771);
   @observable
   MapType currentMapType = MapType.normal;
 
   @observable
   var allData;
-  CollectionReference _collectionRef =
+
+  final CollectionReference _collectionRef =
       FirebaseFirestore.instance.collection('pins');
 
   @action
@@ -48,13 +49,12 @@ abstract class _SelectModeViewModelBase with Store {
     if (allData != null) {
       for (int i = 0; i < allData.length; i++) {
         var item = allData[i];
-        print(allData[i]['latitude'].toString());
         markers.add(Marker(
           onTap: () {},
-          markerId: MarkerId(allData[i]['pinId'].toString()),
-          position: LatLng(double.parse(allData[i]['latitude'].toString()),
-              double.parse(allData[i]['longitude'].toString())),
-          infoWindow: InfoWindow(title: allData[i]['description'].toString()),
+          markerId: MarkerId(item['pinId'].toString()),
+          position: LatLng(double.parse(item['latitude'].toString()),
+              double.parse(item['longitude'].toString())),
+          infoWindow: InfoWindow(title: item['description'].toString()),
           icon: BitmapDescriptor.defaultMarker,
         ));
         //print(getDistance(double.parse(allData[i]["latitude"].toString()), double.parse(allData[i]["longitude"].toString()), currentPosition.latitude, currentPosition.longitude));

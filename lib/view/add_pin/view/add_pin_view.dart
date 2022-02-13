@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lib_msaadev/lib_msaadev.dart';
-import 'package:seyahat_asistani/core/widgets/inputs/login_input.dart';
-import 'package:seyahat_asistani/view/add_pin/view_model/add_pin_viewmodel.dart';
+import '../../../core/widgets/inputs/login_input.dart';
+import '../view_model/add_pin_viewmodel.dart';
 
 class AddPinView extends StatelessWidget {
   final LatLng myPosition;
@@ -12,7 +12,6 @@ class AddPinView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AddPinViewModel viewModel = AddPinViewModel(myPosition: myPosition);
-    final TextEditingController controller = TextEditingController();
 
     return Scaffold(
       floatingActionButton: buildFloatingButton(viewModel),
@@ -21,7 +20,7 @@ class AddPinView extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              buildInput(controller),
+              buildInput(viewModel),
               Expanded(child: buildMap(viewModel))
             ],
           ),
@@ -32,15 +31,17 @@ class AddPinView extends StatelessWidget {
 
   Observer buildFloatingButton(AddPinViewModel viewModel) {
     return Observer(builder: (_) {
-      return FloatingActionButton(
-          child: const Icon(Icons.upload_rounded),
-          onPressed: viewModel.savePin);
+      return viewModel.isLoading
+          ? const SizedBox()
+          : FloatingActionButton(
+              child: const Icon(Icons.upload_rounded),
+              onPressed: viewModel.savePin);
     });
   }
 
-  LoginInput buildInput(TextEditingController controller) {
+  LoginInput buildInput(AddPinViewModel viewModel) {
     return LoginInput(
-      controller: controller,
+      controller: viewModel.controller,
       hint: 'Açıklama',
       icon: Icons.info,
     );
@@ -50,17 +51,28 @@ class AddPinView extends StatelessWidget {
     return Observer(builder: (_) {
       return ClipRRect(
         borderRadius: 5.customRadius,
-        child: GoogleMap(
-            zoomControlsEnabled: false,
-            compassEnabled: false,
-            markers: {
-              Marker(markerId: const MarkerId('pin'), position: viewModel.pin!)
-            },
-            onTap: viewModel.addPin,
-            onMapCreated: (c) {
-              c.animateCamera(CameraUpdate.newLatLngZoom(myPosition, 15));
-            },
-            initialCameraPosition: CameraPosition(target: myPosition)),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            GoogleMap(
+                zoomControlsEnabled: false,
+                compassEnabled: false,
+                markers: {
+                  Marker(
+                      markerId: const MarkerId('pin'), position: viewModel.pin!)
+                },
+                onTap: viewModel.addPin,
+                onMapCreated: (c) {
+                  c.animateCamera(CameraUpdate.newLatLngZoom(myPosition, 15));
+                },
+                initialCameraPosition: CameraPosition(target: myPosition)),
+            viewModel.isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : const SizedBox()
+          ],
+        ),
       );
     });
   }
