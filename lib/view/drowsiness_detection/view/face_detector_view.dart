@@ -4,12 +4,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:seyahat_asistani/core/models/travel_model.dart';
 import 'package:seyahat_asistani/view/drowsiness_detection/view/camera_view.dart';
 
 import '../view_model/face_detector_model.dart';
 
 class FaceDetectorView extends StatefulWidget {
-  const FaceDetectorView({Key? key}) : super(key: key);
+  const FaceDetectorView({Key? key, required this.travelModel}) : super(key: key);
+
+  final TravelModel travelModel;
 
   @override
   _FaceDetectorViewState createState() => _FaceDetectorViewState();
