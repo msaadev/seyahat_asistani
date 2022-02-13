@@ -6,7 +6,10 @@ import 'package:seyahat_asistani/core/init/cache/cache_manager.dart';
 import 'package:seyahat_asistani/core/models/travel_model.dart';
 import 'package:seyahat_asistani/core/services/database_service.dart';
 import 'package:seyahat_asistani/core/widgets/buttons/select_button.dart';
+import 'package:seyahat_asistani/view/drowsiness_detection/view/face_detector_view.dart';
 import 'package:seyahat_asistani/view/select_mode/view_model/select_mode_viewmodel.dart';
+
+import '../../../core/init/navigation/navigation_service.dart';
 part '../resources/select_mode_res.dart';
 
 class SelectModeView extends StatelessWidget {
@@ -18,7 +21,7 @@ class SelectModeView extends StatelessWidget {
   Widget build(BuildContext context) {
     viewModel = SelectModeViewModel();
     return Scaffold(
-      floatingActionButton: buildFloatingButton(),
+      floatingActionButton: buildFloatingButton(travelModel,context),
       body: ListView(
           physics: NeverScrollableScrollPhysics(),
           padding: 10.paddingAll,

@@ -48,8 +48,6 @@ class DatabaseService {
           totalCalories: newCalorie.toString(),
           totalDrive: newDrive.toString(),
           totalWalk: newWalk.toString());
-      
-      print(uid);
 
       await usersRef.doc(uid).set({
         'uid': uid,

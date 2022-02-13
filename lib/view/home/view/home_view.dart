@@ -159,8 +159,8 @@ class _HomeViewState extends State<HomeView> {
       cacheText = CacheManager.instance.getUser!.totalDrive + " KM";
 
     return Container(
-      width: MediaQuery.of(context).size.width / 3.5,
-      height: MediaQuery.of(context).size.height / 7,
+      width: MediaQuery.of(context).size.width / 3.2,
+      height: MediaQuery.of(context).size.height / 5,
       decoration: BoxDecoration(
         color: Colors.grey[400],
         borderRadius: BorderRadius.circular(20),
@@ -176,10 +176,13 @@ class _HomeViewState extends State<HomeView> {
                     style: GoogleFonts.montserrat(
                         fontSize: 14, fontWeight: FontWeight.bold))),
           ),
-          Text(
-            cacheText!,
-            style: GoogleFonts.montserrat(
-                fontSize: 20, fontWeight: FontWeight.bold),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              cacheText!,
+              style: GoogleFonts.montserrat(
+                  fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           )
         ],
       ),
