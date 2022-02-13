@@ -5,10 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 import 'core/init/cache/cache_manager.dart';
 import 'core/init/navigation/navigation_service.dart';
-import 'core/init/providers/provider_list.dart';
 import 'view/splash/view/splash_view.dart';
 
 late List<CameraDescription> cameras;
@@ -18,10 +16,8 @@ void main() async {
   await Permission.camera.request();
   await Permission.location.request();
   await _init();
-  runApp(MultiProvider(
-    providers: [...ApplicationProvider.instance.dependItems],
-    child: const MyApp(),
-  ));
+  runApp( const MyApp(),
+  );
 }
 
 late final FirebaseAuth firebaseAuth;
