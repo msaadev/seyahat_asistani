@@ -23,7 +23,6 @@ class SelectButton extends StatelessWidget {
     return AnimatedContainer(
       duration: 500.millisecondsDuration,
       padding: [20, 5].paddingSymmetric,
-      margin: 5.paddingAll,
       alignment: Alignment.center,
       decoration: BoxDecoration(
           borderRadius: 5.customRadius,

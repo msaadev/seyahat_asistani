@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
+      theme: ThemeData.light().copyWith(
           appBarTheme: const AppBarTheme(
               backgroundColor: Colors.transparent,
               elevation: 0,

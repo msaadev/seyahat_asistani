@@ -22,58 +22,62 @@ class SelectModeView extends StatelessWidget {
     viewModel = SelectModeViewModel(context);
     return Scaffold(
       floatingActionButton: buildFloatingButton(travelModel, context),
-      body: ListView(
-          physics: const NeverScrollableScrollPhysics(),
-          padding: 10.paddingAll,
-          children: [
-            10.hSized,
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Nasil gideceksiniz?',
-                style: context.textTheme.headline4,
-              ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(children: [
+            20.hSized,
+            Text(
+              'Nasil gideceksiniz?',
+              style: context.textTheme.headline4,
             ),
-            10.hSized,
+            20.hSized,
             _buildTopButtons(viewModel),
-            10.hSized,
+            20.hSized,
             Observer(builder: (_) {
               return AnimatedSwitcher(
                 duration: 500.millisecondsDuration,
                 child: viewModel.isCar ? arabaCard() : yurumeCard(),
               );
             }),
-            Observer(builder: (_) {
-              return Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 1.5,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                        target: viewModel.lastMapPosition,
-                        zoom: 8.0,
+            20.hSized,
+            Expanded(
+              child: Observer(builder: (_) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: GoogleMap(
+                        initialCameraPosition: CameraPosition(
+                          target: viewModel.lastMapPosition,
+                          zoom: 8.0,
+                        ),
+                        mapType: viewModel.currentMapType,
+                        markers: viewModel.markers,
+                        onCameraMove: viewModel.onCameraMove,
+                        myLocationButtonEnabled: false,
+                        myLocationEnabled: true,
+                        zoomControlsEnabled: true,
+                        onMapCreated: (GoogleMapController controller) {
+                          viewModel.mapController = controller;
+                          controller.animateCamera(
+                              CameraUpdate.newLatLng(travelModel.start));
+                        },
                       ),
-                      mapType: viewModel.currentMapType,
-                      markers: viewModel.markers,
-                      onCameraMove: viewModel.onCameraMove,
-                      myLocationButtonEnabled: false,
-                      myLocationEnabled: true,
-                      zoomControlsEnabled: true,
-                      onMapCreated: (GoogleMapController controller) {
-                        viewModel.mapController = controller;
-                      },
                     ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+            ),
           ]),
+        ),
+      ),
     );
   }
 }

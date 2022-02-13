@@ -48,10 +48,10 @@ class DatabaseService {
           uid: uid,
           email: user.email,
           name: user.name,
-          fuelCost: newFuel.toString(),
-          totalCalories: newCalorie.toString(),
-          totalDrive: newDrive.toString(),
-          totalWalk: newWalk.toString());
+          fuelCost: newFuel.toStringAsFixed(2),
+          totalCalories: newCalorie.toStringAsFixed(2),
+          totalDrive: newDrive.toStringAsFixed(2),
+          totalWalk: newWalk.toStringAsFixed(2));
 
       await usersRef.doc(uid).set({
         'uid': uid,

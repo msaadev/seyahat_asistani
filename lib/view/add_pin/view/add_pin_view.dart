@@ -51,28 +51,17 @@ class AddPinView extends StatelessWidget {
     return Observer(builder: (_) {
       return ClipRRect(
         borderRadius: 5.customRadius,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            GoogleMap(
-                zoomControlsEnabled: false,
-                compassEnabled: false,
-                markers: {
-                  Marker(
-                      markerId: const MarkerId('pin'), position: viewModel.pin!)
-                },
-                onTap: viewModel.addPin,
-                onMapCreated: (c) {
-                  c.animateCamera(CameraUpdate.newLatLngZoom(myPosition, 15));
-                },
-                initialCameraPosition: CameraPosition(target: myPosition)),
-            viewModel.isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : const SizedBox()
-          ],
-        ),
+        child: GoogleMap(
+            zoomControlsEnabled: false,
+            compassEnabled: false,
+            markers: {
+              Marker(markerId: const MarkerId('pin'), position: viewModel.pin!)
+            },
+            onTap: viewModel.addPin,
+            onMapCreated: (c) {
+              c.animateCamera(CameraUpdate.newLatLngZoom(myPosition, 15));
+            },
+            initialCameraPosition: CameraPosition(target: myPosition)),
       );
     });
   }
